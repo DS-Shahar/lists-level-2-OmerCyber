@@ -1,5 +1,23 @@
-class Main {
-  
+class Main 
+{
+  public static void main(String[] args) 
+  {
+    int[] arr1 = {1, 3, 5};
+    int[] arr2 = {2, 3, 4};
+    Node<Integer> L1 = createListFromArray(arr1);
+    Node<Integer> L2 = createListFromArray(arr2);
+
+    System.out.println("merge:");
+    Node<Integer> merged = ex12_mergeSorted(L1, L2);
+    printListLoop(merged);
+
+    int[] arr3 = {5, 1, 4, 2};
+    Node<Integer> unsorted = createListFromArray(arr3);
+
+    System.out.println("selection sort:");
+    Node<Integer> sorted = ex13_selectionSort(unsorted);
+    printListLoop(sorted);
+  }
   public static Node<Integer> ex12_mergeSorted(Node<Integer> L1, Node<Integer> L2) 
   {
     Node<Integer> dummy = new Node<Integer>(0);
