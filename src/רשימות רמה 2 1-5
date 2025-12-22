@@ -1,0 +1,255 @@
+public class Main
+{
+    public static void main(String[] args)
+    {
+    }
+
+    public static Node<Integer> buildList(int[] a)
+    {
+        Node<Integer> h = new Node<Integer>(a[0]);
+        Node<Integer> p = h;
+        Node<Integer> x;
+        for (int i = 1; i < a.length; i++)
+        {
+            x = new Node<Integer>(a[i]);
+            p.setNext(x);
+            p = p.getNext();
+        }
+        return h;
+    }
+
+    public static void PrintNode(Node<Integer> p)
+    {
+        while (p != null)
+        {
+            System.out.println(p.getValue());
+            p = p.getNext();
+        }
+    }
+
+    public static int SumNode(Node<Integer> p)
+    {
+        int s = 0;
+        while (p != null)
+        {
+            s += p.getValue();
+            p = p.getNext();
+        }
+        return s;
+    }
+
+
+
+
+public static Node<Integer> ex_1(Node<Integer> L1, Node<Integer> L2)
+    {
+        Node<Integer> h = null;
+        Node<Integer> p = null;
+
+        while (L1 != null && L2 != null)
+        {
+            Node<Integer> x;
+
+            if (L1.getValue() <= L2.getValue())
+            {
+                x = new Node<Integer>(L1.getValue());
+                L1 = L1.getNext();
+            }
+            else
+            {
+                x = new Node<Integer>(L2.getValue());
+                L2 = L2.getNext();
+            }
+
+            if (h == null)
+            {
+                h = x;
+                p = x;
+            }
+            else
+            {
+                p.setNext(x);
+                p = x;
+            }
+        }
+
+        while (L1 != null)
+        {
+            Node<Integer> x = new Node<Integer>(L1.getValue());
+            if (h == null)
+            {
+                h = x;
+                p = x;
+            }
+            else
+            {
+                p.setNext(x);
+                p = x;
+            }
+            L1 = L1.getNext();
+        }
+
+        while (L2 != null)
+        {
+            Node<Integer> x = new Node<Integer>(L2.getValue());
+            if (h == null)
+            {
+                h = x;
+                p = x;
+            }
+            else
+            {
+                p.setNext(x);
+                p = x;
+            }
+            L2 = L2.getNext();
+        }
+
+        return h;
+    }
+
+    public static Node<Integer> ex_2(Node<Integer> list)
+    {
+        Node<Integer> h = null;
+        Node<Integer> p = null;
+
+        while (list != null)
+        {
+            Node<Integer> min = list;
+            Node<Integer> minPrev = null;
+
+            Node<Integer> q = list;
+            while (q.getNext() != null)
+            {
+                if (q.getNext().getValue() < min.getValue())
+                {
+                    min = q.getNext();
+                    minPrev = q;
+                }
+                q = q.getNext();
+            }
+
+            if (minPrev == null)
+            {
+                list = list.getNext();
+            }
+            else
+            {
+                minPrev.setNext(min.getNext());
+            }
+
+            Node<Integer> x = new Node<Integer>(min.getValue());
+
+            if (h == null)
+            {
+                h = x;
+                p = x;
+            }
+            else
+            {
+                p.setNext(x);
+                p = x;
+            }
+        }
+
+        return h;
+    }
+
+    public static int ex_3(Node<Integer> list, int num)
+	{
+	    int index1 =0;
+	    int index2 =0;
+	    while(list != null && list.getValue() != num  )
+	    {
+	        index1 ++;
+	        list = list.getNext();
+	 
+	    }
+	    if(list ==null)
+	    {
+	        return -1;
+	    }
+	    
+	    while(list != null)
+	    {
+	        index2++;
+	        if(list.getValue() == num)
+	        {
+	            index2 = 0;
+	        }
+	       list = list.getNext();
+
+
+	    }
+	    
+	     return index2 + index1;
+
+	    	 
+
+	} 
+
+    public static boolean ex_4(Node<Integer> list)
+    {
+        Node<Integer> p = list;
+
+        while (p != null)
+        {
+            Node<Integer> q = p.getNext();
+
+            while (q != null)
+            {
+                if (p.getValue() == q.getValue())
+                {
+                    return false;
+                }
+                q = q.getNext();
+            }
+
+            p = p.getNext();
+        }
+
+        return true;
+    }
+
+    public static Node<Integer> ex_5(Node<Integer> list)
+    {
+        Node<Integer> h = null;
+        Node<Integer> p = null;
+
+        Node<Integer> q = list;
+        while (q != null)
+        {
+            if (!contains(h, q.getValue()))
+            {
+                Node<Integer> x = new Node<Integer>(q.getValue());
+                if (h == null)
+                {
+                    h = x;
+                    p = x;
+                }
+                else
+                {
+                    p.setNext(x);
+                    p = x;
+                }
+            }
+            q = q.getNext();
+        }
+
+        return h;
+    }
+
+   public static boolean contains(Node<Integer> list, int val)
+    {
+        Node<Integer> p = list;
+        while (p != null)
+        {
+            if (p.getValue() == val)
+            {
+                return true;
+            }
+            p = p.getNext();
+        }
+        return false;
+    }
+}
