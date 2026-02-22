@@ -94,5 +94,44 @@ class Main
 
     return sortedHead;
 }
+public static Node<Integer> maxIndices(Node<Integer> lst) {
+    if (lst == null) {
+        return null;
+    }
+    
+    Node<Integer> resultHead = null;
+    Node<Integer> resultTail = null;
+    Node<Integer> current = lst;
+    int globalIndex = 0;
 
+    while (current != null) {
+        int maxVal = current.getValue();
+        int maxIdx = globalIndex;
+        int count = 1;
+        
+        current = current.getNext();
+        globalIndex++;
+
+        while (current != null && count < 3) {
+            if (current.getValue() > maxVal) {
+                maxVal = current.getValue();
+                maxIdx = globalIndex;
+            }
+            current = current.getNext();
+            globalIndex++;
+            count++;
+        }
+
+        Node<Integer> newNode = new Node<Integer>(maxIdx);
+        if (resultHead == null) {
+            resultHead = newNode;
+            resultTail = newNode;
+        } else {
+            resultTail.setNext(newNode);
+            resultTail = newNode;
+        }
+    }
+    
+    return resultHead;
+}
 }
