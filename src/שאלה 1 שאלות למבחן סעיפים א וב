@@ -1,0 +1,64 @@
+public static Node<Integer> getMaxIndexes(Node<Integer> lst) {
+    Node<Integer> head = null;
+    Node<Integer> last = null;
+    Node<Integer> pos = lst;
+    int currentIndex = 0;
+
+    while (pos != null) {
+        int maxVal = pos.getValue();
+        int maxIndex = currentIndex;
+        
+        Node<Integer> temp = pos;
+        for (int i = 0; i < 3 && temp != null; i++) {
+            if (temp.getValue() > maxVal) {
+                maxVal = temp.getValue();
+                maxIndex = currentIndex + i;
+            }
+            temp = temp.getNext();
+        }
+
+        Node<Integer> newNode = new Node<>(maxIndex);
+        if (head == null) {
+            head = newNode;
+            last = newNode;
+        } else {
+            last.setNext(newNode);
+            last = newNode;
+        }
+
+        // Move pos 3 steps forward
+        for (int i = 0; i < 3 && pos != null; i++) {
+            pos = pos.getNext();
+            currentIndex++;
+        }
+    }
+    return head;
+}
+
+
+
+
+public static Node<Integer> deleteByPositions(Node<Integer> lst, Node<Integer> positions) {
+    while (positions != null) {
+        int posToDelete = positions.getValue();
+        lst = deleteNodeAt(lst, posToDelete);
+        positions = positions.getNext();
+    }
+    return lst;
+}
+
+// Helper method to delete at specific index
+public static Node<Integer> deleteNodeAt(Node<Integer> head, int index) {
+    if (head == null) return null;
+    if (index == 0) return head.getNext();
+
+    Node<Integer> prev = head;
+    for (int i = 0; i < index - 1 && prev.getNext() != null; i++) {
+        prev = prev.getNext();
+    }
+
+    if (prev.getNext() != null) {
+        prev.setNext(prev.getNext().getNext());
+    }
+    return head;
+}
